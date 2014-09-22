@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contacts</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+  		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  		<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script type="text/javascript" charset="utf-8">
+
+            // Wait for device API libraries to load
+            document.addEventListener("deviceready", onDeviceReady, false);
+
+            // device APIs are available
+
+            function onDeviceReady() {
+                // find all contacts with 'Bob' in any name field
+                var options = new ContactFindOptions();
+                options.filter = "";
+                options.multiple = true;
+                var fields = ["displayName","phoneNumbers"];
+<<<<<<< HEAD
+                window.alert("about to find contacts");
+=======
+>>>>>>> ce3c7980b7366cf44b4ac1bc6f22880e368b1a2d
+                navigator.contacts.find(fields, onSuccess, onError, options);
+                window.alert("found contacts");
+            }
+
+            // onSuccess: Get a snapshot of the current contacts
+
+            var loaded = false;
+            var pnums = [];
+
+			// onSuccess: Get a snapshot of the current contacts
+			function onSuccess(contacts) {
+<<<<<<< HEAD
+				window.alert(contacts.length);
+=======
+>>>>>>> ce3c7980b7366cf44b4ac1bc6f22880e368b1a2d
+		   		for(var i=0; i<contacts.length; i++){
+		   			if(contacts[i].displayName){
+		   				if(contacts[i].phoneNumbers != null){
+		   					for(var j=0; j<contacts[i].phoneNumbers.length; j++){
+		   						pnums.push(parsenum(contacts[i].phoneNumbers[j].value));
+		   					}
+		   				}
+		   			}
+		   		}
+		   		//document.write(pnums.length);
+
+		   		$("#frame").html('<fieldset data-role="controlgroup"><legend>Select who you want to follow:</legend></fieldset>');
+		   		for(var i=0; i<pnums.length; i++){
+		   			//document.write(contacts[i].phoneNumbers.length)
+		   			 	$("fieldset").append('<input type="checkbox" name="' + pnums[i] + '" id="id' + i + '"><label for="id' + i + '">' + pnums[i] + '</label>');
+		   		}	
+		   		$("#frame").append('<a href="#" data-role="button" data-inline="true" id="btndelcat">Continue</a>');
+			    $("#frame").trigger("create");
+			    loaded = true;
+			}
+
+			function parsenum(pnum){
+				pnum = pnum.toString();
+				var num = "";
+				var count = 0;
+				var i = pnum.length-1;
+
+				while(count != 10){
+					if(pnum.charAt(i) !== '-'){
+						num = pnum.charAt(i)+ num;
+						count++;
+					}
+					i--;
+				}
+				return num;
+			}   
+
+            function onError(contactError) {
+                alert('onError!');
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <div data-role="page" id="contacts">
+
+		  <div data-role="header">
+		    <h1>Contacts</h1>
+		  </div>
+
+		  <div data-role = "content">
+		  		<div id = "frame"></div>
+		  </div>
+		</div>
+    </body>
+</html>

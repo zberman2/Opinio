@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Profile</title>
+  
+  <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+  
+  
+  
+  
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.js"></script>
+  
+  
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+  <style type='text/css'>
+    
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+var username = "zberms25";
+$('#head').prepend('<p style="text-align:center;" >' + username + '</p>');
+
+$("#flip-min").val('on').slider('refresh');
+
+$('#list').append('<li><a href = "C:/chart.html"><h2>What should I get to eat?</h2></a></li>').listview('refresh');
+
+var val = 'on';
+$("#flip-min").change(function () {
+    if (val !== $(this).val()) {
+        //alert("unfollowed " + username);
+    }
+    else{
+        //alert("following " + username);
+    }
+});
+});//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+<body>
+    <div data-role="page" id="frame">
+        <div data-role="header" id="head"></div>
+        <!-- /header -->
+        <style type="text/css" media="screen">
+            .containing-element .ui-slider-switch {
+                width: 8em;
+                position: absolute;
+                right: 0;
+            }
+        </style>
+        <div class="containing-element">
+            <select name="flip-min" id="flip-min" data-role="slider">
+                <option value="off">Follow</option>
+                <option value="on">Following</option>
+            </select>
+        </div>
+        <div data-role="content">
+            <ul data-role="listview" id="list"></ul>
+        </div>
+    </div>
+</body>
+  
+</body>
+
+
+</html>
+

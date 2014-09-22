@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+        <head>
+                <meta name="viewport" content="width=320;user-scalable=no"/>
+                <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+                <title>Feed Screen</title>
+                <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+                <style type="text/css">
+                        #feed{
+                                background-image: url("img/sativa.png");
+                                background-repeat: repeat-x repeat-y;
+                        }
+                        .nav-glyphish-example .ui-btn { padding-top: 40px !important; }
+                        .nav-glyphish-example .ui-btn:after { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
+                        #friendfeed:after { background:  url("icons/112-group.png") 50% 50% no-repeat; background-size: 24px 22px; }
+                        #createpoll:after { background:  url("icons/117-todo.png") 50% 50% no-repeat; background-size: 24px 16px;  }
+                        #myfeed:after { background:  url("icons/111-user.png") 50% 50% no-repeat;  background-size: 12px 26px; }
+                        #popular:after { background:  url("icons/124-bullhorn.png") 50% 50% no-repeat;  background-size: 22px 27px; }
+                        #follow:after { background:  url("icons/55-network.png") 50% 50% no-repeat;  background-size: 20px 24px; }
+                        #skull:after { background:  url("icons/21-skull.png") 50% 50% no-repeat;  background-size: 22px 24px; }
+                </style>
+
+                <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+                <script type="text/javascript">
+                        $(document).bind("mobileinit", function() {
+                            $.support.cors = true;
+                            $.mobile.allowCrossDomainPages = true;
+                        });
+                </script>
+                
+                <script type="text/javascript">
+                        $(document).on('pageinit', function(event){
+                          $('div.ui-page').on("swipeleft", function () {
+                            var nextpage = $(this).next('createpoll.html');
+                              if (nextpage.length > 0) {
+                                $.mobile.changePage(nextpage, "slide", false, true);
+                              }
+                          });
+
+                          $('div.ui-page').on("swiperight", function () {
+                            var prevpage = $(this).prev('div[data-role="page"]');
+                            if (prevpage.length > 0) {
+                              $.mobile.changePage(prevpage, { transition: "slide", reverse: true }, true, true);
+                            }
+                          });
+                        });
+                </script>
+                <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+                <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+                <script type="text/javascript" charset="utf-8" src="js/feed.js"></script>
+
+                <script type="text/javascript">
+                        
+                        function transition(){
+                                window.location = "createpoll.html";
+                        }
+
+                        function deleteUser(){
+                                $.post("https://web.engr.illinois.edu/~mtmarsh2/deleteuser.php", function(sql){
+                                        document.write(sql);
+                                });
+                                //window.location="index.html";
+                        }
+
+                        function changePassword(){
+                                $.post("https://web.engr.illinois.edu/~mtmarsh2/userupdate.php");
+                                window.location="updatePassword.html";
+                        }
+
+                        function friendfeed(){
+                                window.location = "feed.html";
+                        }
+
+                        function createpoll(){
+                                window.location = "createpoll.html"
+                        }
+
+                        function myfeed(){
+                                window.location = "profile.html";
+                        }
+
+                        function popular(){
+                                window.location = "popular.html";
+                        }
+
+                        function follow(){
+                                window.location = "follow.html";
+                        }
+                </script>
+        </head>
+
+        <body>
+                <div data-role="page" id="feed">
+                        <div data-role="header">
+                        </div>
+
+                        <!-- <div data-role="content">
+                                <h1>Feed Screen! Woot!</h1>
+                                <input type="button" value="Create Poll" id="changeButton" onClick="transition()"> 
+                                <input type="button" value="Delete User" id="deleteButton" onclick="deleteUser()"/> 
+                                <input type="button" value="Change Password" id="changePasswordButton" onclick="changePassword()"/>
+                        </div> -->
+
+                        <div data-role="content">
+                                <ul id="feedList" data-role="listview"></ul>
+                         </div>
+
+
+                        <script> loader(); </script>
+
+                            <!-- this script below works for recognizing taps
+                         <script>
+                            $(document).on('vclick', '#feedList', function(){ 
+                                console.log("click");
+                                window.alert("tap");
+                            });
+                            </script>
+                        -->
+                       <!-- <script>
+                             $('feedList').live("click", function(event, ui) {
+                                console.log("updateVersion, selected = " + $(this).attr('id'));
+                              })
+                        </script>  -->
+                        <script>
+                            $('#feedList').delegate('li', 'vclick', function() {
+                                //window.alert("clicked");
+                                var index = $(this).index();
+                                //window.alert(index);
+                                //presentView(index);
+                                var selectedIndex="selectedIndex";
+
+                                window.localStorage.setItem(selectedIndex, $(this).index())
+                                    //window.alert("seguing to chart");
+                                  window.location="chart.html";
+                            });
+                            </script>
+
+                        <div data-role="footer" class="nav-glyphish-example" data-theme="b" data-position="fixed">
+                            <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
+                                    <ul>
+                                        <li><a id="friendfeed" data-icon="custom" onclick="friendfeed()">Feed</a></li>
+                                        <li><a id="createpoll" data-icon="custom" onclick="createpoll()">Poll?</a></li>
+                                        <li><a id="myfeed" data-icon="custom" onclick="myfeed()">Profile</a></li>
+                                        <li><a id="popular" data-icon="custom" onclick="popular()">Popular</a></li>
+                                        <li><a id="follow" data-icon="custom" onclick="follow()">Follow</a></li>
+                                    </ul>
+                            </div>
+                        </div>
+                </div> 
+        </body>
+</html>

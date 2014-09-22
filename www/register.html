@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+	
+	<head>
+		<meta name="viewport" content="width=320;user-scalable=no"/>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>Register</title>
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+		<style type="text/css">
+        #registerPage {
+            background-image: url("img/giftly.png")!important;
+            background-repeat: repeat-x repeat-y;
+        }
+        #registerForm{
+        	background-color: transparent;
+        }
+        </style>
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/register.js"></script>
+	</head>
+	
+	<body onload="init()">
+		<div id="registerPage" data-role="page">
+			
+
+			<div data-role="content">
+				<h2 style="text-align:center">Keep Pollin' Pollin'</h2>
+				<form id="registerForm">
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="name">Name:</label>
+						<input type="text" name="name" id="name" value="" placeholder="Full Name"/>
+					</div>
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="phonenumber">Name:</label>
+						<input type="text" name="phonenumber" id="phonenumber" value="" placeholder="Phone Number"/>
+					</div>
+					<div data-role="fieldcontain" class="ui-hide-label">
+						<label for="email">Email:</label>
+						<input type="text" name="email" id="email" value="" placeholder="Email"/>
+					</div>
+
+					<div data-role="fieldcontain" class="ui-hide-label">
+                        <label for="username"> Username: </label>
+                        <input type="text" name="username" id="username" value="" placeholder="Username"/>
+                    </div>
+
+                    <div data-role="fieldcontain" class="ui-hide-label">
+                        <label for="password"> Password: </label>
+                        <input type="password" name="password" id="password" value="" placeholder="Password"/>
+                    </div>
+
+                    <input type="submit" value="Register" id="registerButton" data-theme="b">
+				</form>
+			</div>
+		</div>
+	</body>
+
+</html>

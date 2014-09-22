@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Find Friends</title>
+  
+  <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+  
+  
+  
+  
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.js"></script>
+  
+  
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+  <style type='text/css'>
+    
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+var contacts = new Array();
+contacts[0] = "Zack Berman";
+contacts[1] = "Harjas Singh";
+contacts[2] = "Ben Chansky";
+contacts[3] = "Mike Marshall";
+contacts.sort();
+
+$('#searchFriends').on("click", function () {
+    $("#frame").empty()
+    var name = $('#keyword').val();
+    name = name.toLowerCase();
+
+    if (name != '') {
+        for (var i = 0; i < contacts.length; i++) {
+            var temp = contacts[i];
+            temp = temp.toLowerCase();
+            if (temp.indexOf(name) > -1) $('#frame').append('<li><a href = "C:/profile.html">' + contacts[i] + '</a></li>').listview('refresh');
+        }
+        $('#keyword').val('');
+    } else {
+        alert('Nothing entered');
+    }
+});
+});//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+<body>
+    <div data-role="page" id="contacts">
+        <div data-role="header">
+             <h1>Find Friends</h1>
+
+        </div>
+        <!-- /header -->
+        <div>
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a">
+                    <input type="text" placeholder="enter name here" id="keyword" />
+                </div>
+                <div class="ui-block-b">
+                    <input type="button" value="Search" id="searchFriends" />
+                </div>
+            </fieldset>
+        </div>
+        <div data-role="content">
+            <ul data-role="listview" id="frame"></ul>
+        </div>
+    </div>
+</body>
+  
+</body>
+
+
+</html>
+

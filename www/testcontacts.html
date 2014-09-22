@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Contacts</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+  		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+  		<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script type="text/javascript">
+
+        	function init(){
+ 		   		document.addEventListener("deviceready",createpoll,true);
+    			delete init;
+			}
+        	
+        	function send(){
+        		var pnums = ["Zhang","7893561246","2134567890"];
+        		$("#sendcontacts").on("tap",function(e){
+        			document.write(pnums);
+        		// $.post("https://web.engr.illinois.edu/~opinio2014/findcontacts.php",{phonenumbers:pnums},function(res){
+        		// 	document.write(res);
+        		// });
+        		});	
+        	}
+        	
+        </script>
+    </head>
+    <body onload="init()">
+    	<button id="sendcontacts" value="Add">Add</button>
+    </body>
+
+</html>

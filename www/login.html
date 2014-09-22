@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta name="viewport" content="width=320;user-scalable=no"/>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>UserLogin</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+        <style type="text/css">
+        #loginPage {
+            background-image: url("img/giftly.png")!important;
+            background-repeat: repeat-x repeat-y;
+        }
+        #loginForm{
+            background-color: transparent;
+        }
+        </style>
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/login.js"></script>
+    </head>
+
+    <body onload="init()">
+        <div data-role="page" id="loginPage">
+            
+            <!--Title/Logo goes here-->
+            
+
+            <!--LoginForm-->
+            <div data-role="content">
+            <h2 style="text-align:center"> Welcome back! </h2>
+                <form id="loginForm">
+
+                    <div data-role="fieldcontain" class="ui-hide-label">
+                        <label for="username"> Username: </label>
+                        <input type="text" name="username" id="username" value="" placeholder="Username"/>
+                    </div>
+
+                    <div data-role="fieldcontain" class="ui-hide-label">
+                        <label for="password"> Password: </label>
+                        <input type="password" name="password" id="password" value="" placeholder="Password"/>
+                    </div>
+
+                    <input type="submit" value="Login" id="submitButton" data-theme="b">
+                    
+                </form>
+            </div>
+            <!--End of login form-->
+            <div data-role="registerButton">
+                <input type="button" value="Register" id="registerButton" onclick="register()">
+            </div> 
+        </div>
+    </body>
+</html>

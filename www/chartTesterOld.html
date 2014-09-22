@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html>
+<head>  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.js"></script>
+    <script type='text/javascript'>//<![CDATA[ 
+
+$(window).load(function(){
+    window.alert("hi ben");
+    var index=(localStorage.getItem("selectedIndex"));
+    //window.alert("index: "+index);
+    var pIDs = jQuery.parseJSON(localStorage.getItem("p_idArr"));
+    var cIDs = jQuery.parseJSON(localStorage.getItem("c_idArr"));
+    var pid= pIDs[index];
+    var cID = cIDs[index];
+    window.alert("selected choice: "+cID);
+    var pollTitle = "What should I get to eat?";
+   // window.alert(pid);
+    var options = [];
+    var optionIDs =[];
+    var votes = [];
+
+           $.post("https://web.engr.illinois.edu/~opinio2014/getpollinfo.php",{pid:pid},function(res){ 
+                            //window.alert(res);
+                            //window.alert(jQuery.parseJSON(res));
+                            var obj = jQuery.parseJSON(res);
+                           // window.alert(obj);
+                           // window.alert("object 0 length: "+obj.length);
+                           // window.alert(obj[0].textt);
+                            pollTitle=obj[0].textt;
+                            //window.alert(pollTitle);
+
+                            for(var i =1; i<obj.length; i++){
+
+                                options.push(obj[i].textt);
+                                //window.alert("choice: "+obj[i].textt);
+                                votes.push(obj[i].numvotes);
+                                //window.alert("num votes: "+obj[i].numvotes);
+                            }
+    // for (var i = 0; i < options.length; i++)
+    //     votes.push(0);
+
+    var totalVotes = 0;
+
+    var prevVote = null;
+
+    for (var i = 0; i < options.length; i++) {
+        var id = 'radio-choce-' + i,
+            label = options[i],
+            value = options[i];
+
+        $("fieldset").append('<input type="radio" name="radio-choice" id="' + id + '" value="' + value + '" /><label for="' + id + '">' + label + '</label>');
+    }
+    $("#frame").trigger("create");
+
+    $('#frame input').on('change', function () {
+        window.alert("clicked");
+        if (prevVote !== null) {
+            //alert(prevVote);
+            //MAKE POST REQUEST
+       // $.post("https://web.engr.illinois.edu/~opinio2014/getpollinfo.php",{type:add, choice_id:cID},function(res){});
+            var i = 0;
+            while (i < options.length) {
+                if (options[i] === prevVote) break;
+                i++;
+            }
+            votes[i]--;
+            totalVotes--;
+        }
+        prevVote = $('input[name="radio-choice"]:checked', '#frame').val();
+        window.alert("prevVote: "+prevVote);
+        //alert(prevVote);
+        //MAKE POST REQUEST
+        window.alert("about to call post");
+        var typeSent="add";
+        $.post("https://web.engr.illinois.edu/~opinio2014/getpollinfo.php",{type: typeSent, choice_id:cID},function(res){});
+        window.alert("made a post request for voting on: "+cID);
+        var j = 0;
+        while (j < options.length) {
+            if (options[j] === prevVote) break;
+            j++;
+        }
+        votes[j]++;
+        totalVotes++;
+        percentages = [];
+        best = -1;
+        for (var a = 0; a < votes.length; a++) {
+            percentages[a] = votes[a] / totalVotes;
+            if (percentages[a] > best) {
+                best = percentages[a];
+            }
+        }
+        ser = generateData(options, percentages);
+        $('#container').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: pollTitle
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Percentage',
+                data: ser
+            }]
+        });
+    });
+
+    for (var i = 0; i < votes.length; i++) {
+        totalVotes += votes[i];
+    }
+
+    var percentages = [];
+    var best = -1;
+    for (i = 0; i < votes.length; i++) {
+        percentages[i] = votes[i] / totalVotes;
+        if (percentages[i] > best) {
+            best = percentages[i];
+        }
+    }
+    var ser = [];
+    ser = generateData(options, percentages);
+
+    function generateData(opts, percs) {
+        var s = [];
+        for (var i = 0; i < opts.length; i++) {
+            if (percs[i] === best) {
+                s[i] = {
+                    name: opts[i],
+                    y: percs[i],
+                    sliced: true,
+                    selected: true
+                };
+            } else {
+                s[i] = {
+                    name: opts[i],
+                    y: percs[i],
+                    sliced: false,
+                    selected: false
+                };
+            }
+        }
+        return s;
+    }
+    // Make monochrome colors and set them as default for all pies
+    Highcharts.getOptions().plotOptions.pie.colors = (function () {
+        var colors = [],
+            base = Highcharts.getOptions().colors[Math.floor((Math.random() * 10))],
+            i;
+
+        for (i = 0; i < options.length; i++) {
+            // Start out with a darkened base color (negative brighten), and end
+            // up with a much brighter color
+            colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
+        }
+        return colors;
+    }());
+
+    // Build the chart
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: pollTitle
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Percentage',
+            data: ser
+        }]
+    });
+});
+
+ });
+//]]>  
+
+</script>
+    <!-- line above causing problems -->
+</head>
+  <body>
+    <div data-role="page">
+          <script src="http://code.highcharts.com/highcharts.js"></script>
+          <script src="http://code.highcharts.com/modules/exporting.js"></script>
+        <div data-role = "content">
+            <div id="container" style="width: device-width; height: device-height; margin: 0 auto"></div>
+            <div id = "frame">
+                <fieldset data-role="controlgroup"></fieldset>
+            </div>
+        </div> 
+      </div> 
+    </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta name="viewport" content="width=320;user-scalable=no"/>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>Feed Screen</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+        <style type="text/css">
+            .nav-glyphish-example .ui-btn { padding-top: 40px !important; }
+            .nav-glyphish-example .ui-btn:after { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
+            #friendfeed:after { background:  url("icons/112-group.png") 50% 50% no-repeat; background-size: 24px 22px; }
+            #createpoll:after { background:  url("icons/117-todo.png") 50% 50% no-repeat; background-size: 24px 16px;  }
+            #myfeed:after { background:  url("icons/111-user.png") 50% 50% no-repeat;  background-size: 12px 26px; }
+            #popular:after { background:  url("icons/124-bullhorn.png") 50% 50% no-repeat;  background-size: 22px 27px; }
+            #follow:after { background:  url("icons/55-network.png") 50% 50% no-repeat;  background-size: 20px 24px; }
+            #skull:after { background:  url("icons/21-skull.png") 50% 50% no-repeat;  background-size: 22px 24px; }
+            #createpollpage{
+                    background-image: url("img/sativa.png");
+                    background-repeat: repeat-x repeat-y;
+            }
+        </style>
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script> 
+        <script type="text/javascript" charset="utf-8" src="js/createpoll.js"></script>
+    </head>
+    
+    <body onload= "init()">
+        <div data-role="page" id="createpollpage">
+            <div data-role="header">
+                <div data-role="fieldcontain">
+                <fieldset data-role="controlgroup">
+                    <input type="checkbox" name="checkbox-1" id="INSTABOX" class="custom" />
+                    <label for="checkbox-1">INSTA</label>
+                </fieldset>
+                </div>
+            </div>
+
+            <div data-role="content">
+                <form id="poll" data-theme="e">
+                    <div data-role="fieldcontain" class="ui-hide-label">
+                        <label for="question"> Question: </label>
+                        <input type="text" name="question" id="question" placeholder="Question"/>
+                    </div>
+                    <br>
+                    
+                    <ul id="options-list" data-role="listview" data-split-icon="delete" data-split-theme="d">
+                    </ul>
+                    
+                    <br>
+                    <div data-role="controlgroup" data-inline="true">
+                        <input type="button" id="add-image" value="Image"/>
+                        <input type="text" id="add-option-text" data-wrapper-class="controlgroup-textinput ui-btn" placeholder="Add Option?">
+                        
+                    </div>
+
+                    <input type="button" id="add-option-button" value="Add"/>
+                    <input type="submit" data-theme="b" value="Create Poll!" id="create-poll-button"/>
+                </form>
+            </div>
+
+            <div data-role="footer" class="nav-glyphish-example" data-theme="b" data-position="fixed">
+                <div data-role="navbar" class="nav-glyphish-example" data-grid="d">
+                        <ul>
+                            <li><a rel="external" href="feed.html" id="friendfeed" data-icon="custom">Feed</a></li>
+                            <li><a rel="external" href="createpoll.html" id="createpoll" data-icon="custom">Poll?</a></li>
+                            <li><a rel="external" href="myfeed.html" id="myfeed" data-icon="custom">Profile</a></li>
+                            <li><a rel="external" href="popular.html" id="popular" data-icon="custom">Popular</a></li>
+                            <li><a rel="external" href="follow.html" id="follow" data-icon="custom">Follow</a></li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta name="viewport" content="width=320;user-scalable=no"/>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>UserLogin</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+        <style type="text/css">
+        	#home{
+        		background-image: url("img/congruent_pentagon.png");
+        		background-repeat: repeat-x repeat-y;
+        	}
+
+        </style>
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="PushNotification.js"></script>
+        <script type="text/javascript">
+                    app.initialize();
+        	function login(){
+        		window.location="login.html";
+        	}
+
+        	function register(){
+        		window.location = "register.html";
+        	}
+        </script>
+	</head>
+	<body>
+		<div data-role="page" id="home">
+			<div data-role="header">
+				
+			</div>
+			<div data-role="content">
+					<h1 style="text-align:center">Opinio</h1>
+				<div class="center-wrapper">
+					
+				  	<a data-role="button" data-theme="b" onclick="login()">Login</a>
+				  	<a data-role="button" data-theme="c" onclick="register()">Register</a>
+				</div>
+			</div>
+			<div data-role="footer">
+			</div>
+		</div>
+	</body>
+</html>

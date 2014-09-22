@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Pie Chart</title>
+  
+  <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+    
+  <style type='text/css'>
+    
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+window.alert("about to enter funciton");
+$(function () {
+
+    window.alert("in function");
+    var index=(localStorage.getItem("selectedIndex"));
+    //window.alert("index: "+index);
+    var pIDs = jQuery.parseJSON(localStorage.getItem("p_idArr"));
+    var pid=pIDs[index];
+    var pollTitle = "What should I get to eat?";
+   // window.alert(pid);
+    var options = [];
+    var votes = [];
+
+        /*   $.post("https://web.engr.illinois.edu/~opinio2014/getpollinfo.php",{pid:pid},function(res){ 
+                            window.alert(res);
+                            //window.alert(jQuery.parseJSON(res));
+                            var obj = jQuery.parseJSON(res);
+                           // window.alert(obj);
+                           // window.alert("object 0 length: "+obj.length);
+                           // window.alert(obj[0].textt);
+                            pollTitle=obj[0].textt;
+                            //window.alert(pollTitle);
+
+                            for(var i =1; i<obj.length; i++){
+
+                                options.push(obj[i].textt);
+                                //window.alert("choice: "+obj[i].textt);
+                                votes.push(obj[i].numvotes);
+                                //window.alert("num votes: "+obj[i].numvotes);
+                            }
+                            //var choiceInfoArray=obj.
+
+              });  */
+
+           window.alert("hi");
+           window.alert(options[0]);
+
+
+
+
+
+    var totalVotes = 0;
+
+    for (var i = 0; i < votes.length; i++) {
+        totalVotes += votes[i];
+    }
+
+    var percentages = [];
+    var best = -1;
+    for (i = 0; i < votes.length; i++) {
+        percentages[i] = votes[i] / totalVotes;
+        if (percentages[i] > best) {
+            best = percentages[i];
+        }
+    }
+    var ser = [];
+    ser = generateData(options, percentages);
+
+    function generateData(opts, percs) {
+        var s = [];
+        for (var i = 0; i < opts.length; i++) {
+            if (percs[i] === best) {
+                s[i] = {
+                    name: opts[i],
+                    y: percs[i],
+                    sliced: true,
+                    selected: true
+                };
+            } else {
+                s[i] = [opts[i], percs[i]];
+            }
+        }
+        return s;
+    }
+    // Make monochrome colors and set them as default for all pies
+    Highcharts.getOptions().plotOptions.pie.colors = (function () {
+        var colors = [],
+            base = Highcharts.getOptions().colors[Math.floor((Math.random()*10))],
+            i;
+
+        for (i = 0; i < options.length; i++) {
+            // Start out with a darkened base color (negative brighten), and end
+            // up with a much brighter color
+            colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
+        }
+        return colors;
+    }());
+
+    // Build the chart
+    $('#container').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
+        },
+        title: {
+            text: pollTitle
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Percentage',
+            data: ser
+        }]
+    });
+});
+
+
+
+
+         
+
+   // var obj = jQuery.parseJSON(localStorage.getItem("choiceTextArr"));
+
+
+
+    //window.alert(options[0]);
+    //window.alert("bed time if this is visible");
+
+
+
+//]]>  
+
+</script>
+
+
+
+</head>
+<body>
+
+
+
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+  
+</body>
+
+
+</html>

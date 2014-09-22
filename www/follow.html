@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Followers</title>
+  
+  <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+  
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.js"></script>
+    
+  <style type='text/css'>
+    
+  </style>
+  
+
+
+
+
+
+</head>
+<body>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+<body>
+    <div data-role="page" id="contacts">
+        <div data-role="header">
+             <h1>Followers</h1>
+
+        </div>
+        <div data-role="content">
+            <ul data-role="listview" data-autodividers="true" id="frame" data-filter="true"></ul>
+        </div>
+
+
+<script type='text/javascript'>//<![CDATA[ 
+$(window).load(function(){
+var contacts = [];
+var fullNames= [];
+$.get("https://web.engr.illinois.edu/~opinio2014/getfollow.php",{type: "followers"}, function(data){
+        window.alert("called get: "+data);
+
+        var obj = jQuery.parseJSON(data);
+        //window.alert("called parseJSON: "+obj);
+        for(var i = 0; i < obj.length; i++) {
+
+          contacts.push(obj[i].username);
+ 
+        }
+
+        for (var i = 0; i < contacts.length; i++) {
+            window.alert("contacts: "+contacts[i].username);
+          $('#frame').append('<li><a>' + contacts[i] + '</a></li>').listview('refresh');
+        }
+});
+
+//$("#frame").html('<fieldset data-role="listview"><legend>Select who you want to follow:</legend></fieldset>');
+
+//$("#frame").append('<a href="#" data-role="button" data-inline="true" id="btndelcat">Continue</a>');
+//$("#frame").trigger("create");
+});//]]>  
+
+</script>
+
+
+    </div>
+</body>
+  
+</body>
+
+
+</html>
+

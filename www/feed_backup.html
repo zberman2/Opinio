@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta name="viewport" content="width=320;user-scalable=no"/>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>Feed Screen</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+        <script type="text/javascript">
+            var listCreated = false;
+
+            function appendToList(){
+                //document.write("wassup!");
+                if(!listCreated){
+                    $("#poll").append("<ul id='list' data-role='listview' data-inset='true'></ul>");
+                    
+                    listCreated=true;
+                    $("#poll").trigger("create");
+                }
+                 // $("#list").append(
+                 //     "<li>
+           //                <input type='text' name='option' id='option' value='' placeholder='Option'/>
+                 //     </li>");
+                var value = "<input type";
+                $("#list").append("<li>Item</li>");
+                $("#list").listview("refresh");
+            }
+        </script>
+    </head>
+    
+    <body>
+        <div id="pollCreatePage" data-role="page">
+            <div data-role="header">
+                <h1>Opinio</h1>
+            </div>
+            
+            <div data-role="content" id="content">
+                <form id="poll">
+                    <div data-role="fieldcontain" class="ui-hide-label">
+                        <label for="question"> Question: </label>
+                        <input type="text" name="question" id="question" value="" placeholder="Question"/>
+                    </div> 
+                    
+                    <!-- <div id="option1" data-role="fieldcontain" class="clonedInput">
+                        <input type="text" name="option1" id="option1" value="" placeholder="Option 1"/>
+                    </div>
+
+                    <div id="option2" data-role="fieldcontain" class="clonedInput">
+                        <input type="text" name="option2" id="option2" value="" placeholder="Option 2"/>
+                    </div> -->
+
+                </form>
+
+                <input type="button" id="btnAdd" value="Add" data-inline="true" data-theme="b" data-icon="plus" onclick="appendToList()"/>
+                <input type="button" id="btnDel" value="Del" data-inline="true" data-icon="minus"/>
+
+            </div>
+        </div>
+    </body>
+</html>

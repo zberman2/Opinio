@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta name="viewport" content="width=320;user-scalable=no"/>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>Feed Screen</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+        <script type="text/javascript">
+            var options = [];
+            $(document).ready(function(){
+                $('.deleteMe').live('click',function(){
+                    $(this).parent().remove();
+                    $('#options').listview('refresh');
+                });
+            });
+
+            $('#addOption').on("click", function(e){
+                var op = document.getElementById("optionField");
+                options.push(op);
+                document.write(op);
+                if(op != ''){
+                    // $("#optionsList").append('<li><a>'+op+'</a><a class="deleteMe"</a></li>').listview('refresh');
+                    // $("optionField").val('');
+                    //$("#optionsList").append("<li>item</li>");
+                }
+                else{
+                    alert("Nothing to add");
+                }
+            });
+        </script>
+        
+    </head>
+    
+    <body>
+        <div data-role="page" id="pollscreen">
+            
+            <div data-role="content">
+                
+                <!-- Question -->
+                <div data-role="fieldcontain" class="ui-hide-label">
+                    <label for="question"> Question: </label>
+                    <input type="text" name="question" id="question" value="" placeholder="Question"/>
+                </div>
+                <br>
+                <!-- Options added dynamically -->
+                <ul data-role="listview" id="optionsList" data-split-icon="delete" data-split-theme="d">
+                    <li><a>wassup</a><a class="deleteMe"></a></li>
+                    <li><a>dude</a><a class="deleteMe"></a></li>
+                </ul>
+                <br>
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <input type="text" placeholder="More Options?" id="optionField"> 
+                    </div>
+
+                    <div class="ui-block-b">
+                        <input type="button" value="Add Option" id="addOption">
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </body>
+</html>
